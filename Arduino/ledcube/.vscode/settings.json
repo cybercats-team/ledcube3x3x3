@@ -1,0 +1,8 @@
+{
+  "arduino.path": "/Applications",
+  "arduino.commandPath": "Contents/MacOS/Arduino",
+  "files.associations": {
+    "istream": "cpp",
+    "cstddef": "cpp"
+  }
+}
