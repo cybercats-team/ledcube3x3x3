@@ -7,7 +7,8 @@
 #include <new.h>
 #include "led_cube.h"
 
-LedCube::LedCube(byte size, byte lp[], byte cp[]) :
+LedCube::LedCube(byte size, byte lp[], byte cp[], IDeviceControls * controls) :
+    IDeviceControlsDelegate(controls),
     levels(size), cols(size*size), num(size*size*size),
     bufferEnabled(false), bufferInverted(false)
 {

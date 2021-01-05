@@ -1,9 +1,14 @@
 #include "device_units.h"
 
 DeviceUnits::DeviceUnits() {
-  initCube();
+  controls = new Controls(
+    MODE_TOGGLE_PIN,
+    CLOCK_INPUT_PIN,
+    (float) CLOCK_RATIO_MIN,
+    (float) CLOCK_RATIO_MAX
+  );
 
-  controls = new Controls(MODE_TOGGLE_PIN, CLOCK_INPUT_PIN);
+  initCube();
 }
 
 void DeviceUnits::initCube() {
@@ -17,5 +22,5 @@ void DeviceUnits::initCube() {
     ROW3_COL1_PIN, ROW3_COL2_PIN, ROW3_COL3_PIN
   };
 
-  cube = new LedCube(CUBE_SIZE, levelPins, colPins);
+  cube = new LedCube(CUBE_SIZE, levelPins, colPins, controls);
 }

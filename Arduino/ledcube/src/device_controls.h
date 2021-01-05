@@ -31,7 +31,7 @@ class IDeviceControlsDelegate {
       }
     }
 
-    bool shouldSwitchMode() {
+    virtual bool shouldSwitchMode() {
       return controls->shouldSwitchMode();
     }
 };

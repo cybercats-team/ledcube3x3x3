@@ -10,10 +10,12 @@ class Controls : public IDeviceControls {
   private:
     int buttonPin;
     int wheelPin;
-    bool switchState = false;   // the current "switch mode" state
+    int lastLevel;
+    float clockRatio = 0.0;
+    float baseRatio;
     Debouncer * debouncer;
   public:
-    Controls(int btnPin, int clkPin);
+    Controls(int btnPin, int clkPin, float minRatio, float maxRatio);
     float getClockRatio();
     bool shouldSwitchMode();
 };

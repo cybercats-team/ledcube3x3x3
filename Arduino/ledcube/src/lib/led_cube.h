@@ -8,17 +8,17 @@
 #define LEDCUBE_H
 
 #include <Arduino.h>
+#include "../device_controls.h"
 
 struct cubeFrame {
-    unsigned int size;
-    unsigned int delay;
-    byte *sequence;
+  unsigned int size;
+  unsigned int delay;
+  byte *sequence;
 };
 
-class LedCube
-{
+class LedCube: public IDeviceControlsDelegate {
   public:
-    LedCube(byte size, byte levelPins[], byte colPins[]);
+    LedCube(byte size, byte levelPins[], byte colPins[], IDeviceControls * controls);
     ~LedCube();
 
     byte getCols(){ return cols; }
