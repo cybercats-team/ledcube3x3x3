@@ -2,6 +2,8 @@
 
 DeviceUnits::DeviceUnits() {
   initCube();
+
+  controls = new Controls(MODE_TOGGLE_PIN, CLOCK_INPUT_PIN);
 }
 
 void DeviceUnits::initCube() {
