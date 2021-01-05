@@ -13,6 +13,7 @@ class Controls : public IDeviceControls {
     int lastLevel;
     float clockRatio = 0.0;
     float baseRatio;
+    float minimalRatio;
     Debouncer * debouncer;
   public:
     Controls(int btnPin, int clkPin, float minRatio, float maxRatio);

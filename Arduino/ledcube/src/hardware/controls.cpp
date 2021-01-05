@@ -10,13 +10,14 @@ Controls::Controls(int btnPin, int clkPin, float minRatio, float maxRatio) {
 
   debouncer = new Debouncer(buttonPin, MODE_DEBOUNCE_DELAY);
   baseRatio = ((float) (1 << CLOCK_INPUT_RESOLUTION)) / (maxRatio - minRatio);
+  minimalRatio = minRatio;
 }
 
 float Controls::getClockRatio() {
   int reading = analogRead(wheelPin);
 
   if ((clockRatio <= 0.0) || (reading != lastLevel)) {
-    clockRatio = ((float) reading) / baseRatio;
+    clockRatio = minimalRatio + ((float) reading) / baseRatio;
     lastLevel = reading;
   }
 

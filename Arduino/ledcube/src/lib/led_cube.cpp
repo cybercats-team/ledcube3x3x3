@@ -85,7 +85,7 @@ void LedCube::lightPulse(byte lv, byte col, unsigned int wait)
     lightOn(lv, col);
     if(!bufferEnabled)
     {
-        delay(wait);
+        delayMs(wait);
         lightOff(lv, col);
     }
 }

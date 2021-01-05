@@ -22,7 +22,7 @@ void DemoMode::onLoop() {
     frames[frame] = cube->createFrame(frameLeds[frame], 6, 10 * (framesCount - frame));
   }
 
-  delay(10);
+  delayMs(10);
 
   cube->lightFrames(frames, framesCount);
 
