@@ -8,7 +8,7 @@ class LightFaceMode : public ICubeAnimationMode {
     LightFaceMode(DeviceUnits * deviceUnits, IDeviceStateManager * deviceStateManager) :
       ICubeAnimationMode(deviceUnits, deviceStateManager) {}
 
-    void onLoop() {
+    void animate() {
       // light each face
       byte planes[] = {
         (byte) (cube->getLevels() + 1),

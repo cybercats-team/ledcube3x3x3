@@ -8,7 +8,7 @@ class LightPerimeterMode : public ICubeAnimationMode {
     LightPerimeterMode(DeviceUnits * deviceUnits, IDeviceStateManager * deviceStateManager) :
       ICubeAnimationMode(deviceUnits, deviceStateManager) {}
 
-    void onLoop() {
+    void animate() {
       // circle around cube at a random level
       for (byte x = 0; x <= 5; x++)
       {

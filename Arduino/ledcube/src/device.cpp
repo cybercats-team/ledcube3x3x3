@@ -42,11 +42,7 @@ Device::Device() :
     { .mode = DeviceMode::LightOut, .handler = new LightOutMode(units, this) }
   })
 {
-  DeviceModeHandlerMap selectRandom = handlers[random(0, DEVICE_MODES_COUNT)];
-  IDeviceModeHandler * defaultModeHandler = selectRandom.handler;
-
   handlersForMode = new (IDeviceModeHandler *[DEVICE_MODES_COUNT]);
-  activeMode = selectRandom.mode;
 
   for (auto h: handlers) {
     int modeIndex = Device::getModeIndex(h.mode);
@@ -54,7 +50,7 @@ Device::Device() :
     handlersForMode[modeIndex] = h.handler;
   }
 
-  defaultModeHandler->onActivated();
+  activateMode(selectRandomMode());
 }
 
 DeviceMode Device::getActiveMode() {
@@ -69,9 +65,17 @@ void Device::setActiveMode(DeviceMode newMode) {
   IDeviceModeHandler * currentHandler = getActiveModeHandler();
 
   currentHandler->onDeactivated();
-  activeMode = newMode;
+  activateMode(newMode);
+}
 
-  getActiveModeHandler()->onActivated();
+void Device::setRandomMode() {
+  DeviceMode newMode;
+
+  do {
+    newMode = selectRandomMode();
+  } while (newMode == activeMode);
+
+  setActiveMode(newMode);
 }
 
 void Device::onLoop() {
@@ -82,6 +86,17 @@ IDeviceModeHandler * Device::getActiveModeHandler() {
   int modeIndex = Device::getModeIndex(activeMode);
 
   return handlersForMode[modeIndex];
+}
+
+void Device::activateMode(DeviceMode newMode) {
+  activeMode = newMode;
+  getActiveModeHandler()->onActivated();
+}
+
+DeviceMode Device::selectRandomMode() {
+  DeviceModeHandlerMap selectRandom = handlers[random(0, DEVICE_MODES_COUNT)];
+
+  return selectRandom.mode;
 }
 
 bool Device::isModeAllowed(DeviceMode mode) {

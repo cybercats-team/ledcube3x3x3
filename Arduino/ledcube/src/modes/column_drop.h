@@ -8,7 +8,7 @@ class ColumnDropMode : public ICubeAnimationMode {
     ColumnDropMode(DeviceUnits * deviceUnits, IDeviceStateManager * deviceStateManager) :
       ICubeAnimationMode(deviceUnits, deviceStateManager) {}
 
-    void onLoop() {
+    void animate() {
       // turn off a single column randomly
       cube->enableBuffer();
 

@@ -8,7 +8,7 @@ class LightLevelMode : public ICubeAnimationMode {
     LightLevelMode(DeviceUnits * deviceUnits, IDeviceStateManager * deviceStateManager) :
       ICubeAnimationMode(deviceUnits, deviceStateManager) {}
 
-    void onLoop() {
+    void animate() {
       // light one level at a time, increasing speed each time
       for (byte d = 25; d > 2; d-=2)
       {

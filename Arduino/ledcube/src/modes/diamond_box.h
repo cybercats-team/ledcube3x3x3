@@ -15,7 +15,7 @@ class DiamondBoxMode : public ICubeAnimationMode {
     DiamondBoxMode(DeviceUnits * deviceUnits, IDeviceStateManager * deviceStateManager) :
       ICubeAnimationMode(deviceUnits, deviceStateManager) {}
 
-    void onLoop() {
+    void animate() {
       // diamond and box
       cube->lightSequence(box, sizeof(box), 200);
       cube->lightSequence(diamond, sizeof(diamond), 400);

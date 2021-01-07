@@ -8,7 +8,7 @@ class ColumnRandomMode : public ICubeAnimationMode {
     ColumnRandomMode(DeviceUnits * deviceUnits, IDeviceStateManager * deviceStateManager) :
       ICubeAnimationMode(deviceUnits, deviceStateManager) {}
 
-    void onLoop() {
+    void animate() {
       // random columns
       cube->randomColumn(25);
     }

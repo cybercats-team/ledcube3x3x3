@@ -11,7 +11,7 @@ class HelicopterMode : public ICubeAnimationMode {
     HelicopterMode(DeviceUnits * deviceUnits, IDeviceStateManager * deviceStateManager) :
       ICubeAnimationMode(deviceUnits, deviceStateManager) {}
 
-    void onLoop() {
+    void animate() {
       // helicopter effect
       for (byte loops = 0, delay = 50; loops <= 8; loops++)
       {

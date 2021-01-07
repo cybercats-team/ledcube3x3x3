@@ -20,7 +20,7 @@ class LightFramesMode : public ICubeAnimationMode {
     LightFramesMode(DeviceUnits * deviceUnits, IDeviceStateManager * deviceStateManager) :
       ICubeAnimationMode(deviceUnits, deviceStateManager) {}
 
-    void onLoop() {
+    void animate() {
       cubeFrame ** frames = new cubeFrame *[framesCount];
 
       for (byte frame = 0; frame < framesCount; frame++) {

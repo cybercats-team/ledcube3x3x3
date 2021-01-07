@@ -8,7 +8,7 @@ class LightPulseMode : public ICubeAnimationMode {
     LightPulseMode(DeviceUnits * deviceUnits, IDeviceStateManager * deviceStateManager) :
       ICubeAnimationMode(deviceUnits, deviceStateManager) {}
 
-    void onLoop() {
+    void animate() {
       // light each light one at a time
       for (byte level = 0; level < cube->getLevels(); level++)
       {

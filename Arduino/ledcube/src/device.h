@@ -40,6 +40,8 @@ class Device: public IDeviceStateManager {
     void onLoop();
     IDeviceModeHandler * getActiveModeHandler();
     bool isModeAllowed(DeviceMode mode);
+    void activateMode(DeviceMode newMode);
+    DeviceMode selectRandomMode();
     static int getModeIndex(DeviceMode mode);
   public:
     static void setup();
@@ -47,6 +49,7 @@ class Device: public IDeviceStateManager {
 
     DeviceMode getActiveMode();
     void setActiveMode(DeviceMode newMode);
+    void setRandomMode();
 };
 
 #endif

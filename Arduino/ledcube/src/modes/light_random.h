@@ -8,7 +8,7 @@ class LightRandomMode : public ICubeAnimationMode {
     LightRandomMode(DeviceUnits * deviceUnits, IDeviceStateManager * deviceStateManager) :
       ICubeAnimationMode(deviceUnits, deviceStateManager) {}
 
-    void onLoop() {
+    void animate() {
       // single random light at a time
       cube->randomLight(random(25,100), 100);
     }

@@ -8,7 +8,7 @@ class LightPlaneMode : public ICubeAnimationMode {
     LightPlaneMode(DeviceUnits * deviceUnits, IDeviceStateManager * deviceStateManager) :
       ICubeAnimationMode(deviceUnits, deviceStateManager) {}
 
-    void onLoop() {
+    void animate() {
       // light each plane
       for (byte i = 3; i; i--)
       {

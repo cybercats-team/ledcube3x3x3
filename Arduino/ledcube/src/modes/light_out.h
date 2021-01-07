@@ -8,7 +8,7 @@ class LightOutMode : public ICubeAnimationMode {
     LightOutMode(DeviceUnits * deviceUnits, IDeviceStateManager * deviceStateManager) :
       ICubeAnimationMode(deviceUnits, deviceStateManager) {}
 
-    void onLoop() {
+    void animate() {
       // turn off one light at a time
       cube->lightsOut();
     }

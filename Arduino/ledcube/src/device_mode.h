@@ -5,6 +5,7 @@
 
 class IDeviceStateManager {
   public:
+    virtual void setRandomMode() = 0;
     virtual DeviceMode getActiveMode() = 0;
     virtual void setActiveMode(DeviceMode newMode) = 0;
     virtual ~IDeviceStateManager(){};

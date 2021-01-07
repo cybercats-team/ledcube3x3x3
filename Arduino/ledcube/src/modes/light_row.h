@@ -8,7 +8,7 @@ class LightRowMode : public ICubeAnimationMode {
     LightRowMode(DeviceUnits * deviceUnits, IDeviceStateManager * deviceStateManager) :
       ICubeAnimationMode(deviceUnits, deviceStateManager) {}
 
-    void onLoop() {
+    void animate() {
       // light each row on each level
       for (byte level = 1; level <= cube->getLevels(); level++)
       {

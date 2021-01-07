@@ -8,7 +8,7 @@ class ColumnInOutMode : public ICubeAnimationMode {
     ColumnInOutMode(DeviceUnits * deviceUnits, IDeviceStateManager * deviceStateManager) :
       ICubeAnimationMode(deviceUnits, deviceStateManager) {}
 
-    void onLoop() {
+    void animate() {
       // cols in and out
       for (byte c = 1, d = 0; c <= 10; c++)
       {

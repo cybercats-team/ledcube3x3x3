@@ -8,7 +8,7 @@ class LightDropMode : public ICubeAnimationMode {
     LightDropMode(DeviceUnits * deviceUnits, IDeviceStateManager * deviceStateManager) :
       ICubeAnimationMode(deviceUnits, deviceStateManager) {}
 
-    void onLoop() {
+    void animate() {
       // random column drop
       for (byte x = 0; x <= 15; x++)
       {
