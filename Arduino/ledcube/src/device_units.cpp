@@ -1,14 +1,23 @@
 #include "device_units.h"
 
 DeviceUnits::DeviceUnits() {
+  initRandomSeed();
+  initControls();
+  initCube();
+}
+
+void DeviceUnits::initRandomSeed() {
+  pinMode(RANDOM_SEED_PIN, INPUT);
+  randomSeed(analogRead(RANDOM_SEED_PIN));
+}
+
+void DeviceUnits::initControls() {
   controls = new Controls(
     MODE_TOGGLE_PIN,
     CLOCK_INPUT_PIN,
     (float) CLOCK_RATIO_MIN,
     (float) CLOCK_RATIO_MAX
   );
-
-  initCube();
 }
 
 void DeviceUnits::initCube() {

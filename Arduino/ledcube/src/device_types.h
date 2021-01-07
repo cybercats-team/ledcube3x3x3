@@ -2,7 +2,21 @@
 #define DEVICE_TYPES
 
 enum class DeviceMode {
-  Demo
+  LightFrames,
+  LightPulse,
+  LightLevel,
+  LightRow,
+  LightPlane,
+  LightRandom,
+  LightDrop,
+  LightPerimeter,
+  LightFace,
+  ColumnRandom,
+  ColumndDrop,
+  ColumnInOut,
+  DiamondBox,
+  Helicopter,
+  LightOut
 };
 
 #endif

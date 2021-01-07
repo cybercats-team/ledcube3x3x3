@@ -25,21 +25,33 @@ int Device::getModeIndex(DeviceMode mode) {
 Device::Device() :
   units(new DeviceUnits()),
   handlers({
-    { .mode = DeviceMode::Demo, .handler = new DemoMode(units, this) }
+    { .mode = DeviceMode::LightFrames, .handler = new LightFramesMode(units, this) },
+    { .mode = DeviceMode::LightPulse, .handler = new LightPulseMode(units, this) },
+    { .mode = DeviceMode::LightLevel, .handler = new LightLevelMode(units, this) },
+    { .mode = DeviceMode::LightRow, .handler = new LightRowMode(units, this) },
+    { .mode = DeviceMode::LightPlane, .handler = new LightPlaneMode(units, this) },
+    { .mode = DeviceMode::LightRandom, .handler = new LightRandomMode(units, this) },
+    { .mode = DeviceMode::LightDrop, .handler = new LightDropMode(units, this) },
+    { .mode = DeviceMode::LightPerimeter, .handler = new LightPerimeterMode(units, this) },
+    { .mode = DeviceMode::LightFace, .handler = new LightFaceMode(units, this) },
+    { .mode = DeviceMode::ColumnRandom, .handler = new ColumnRandomMode(units, this) },
+    { .mode = DeviceMode::ColumndDrop, .handler = new ColumnDropMode(units, this) },
+    { .mode = DeviceMode::ColumnInOut, .handler = new ColumnInOutMode(units, this) },
+    { .mode = DeviceMode::DiamondBox, .handler = new DiamondBoxMode(units, this) },
+    { .mode = DeviceMode::Helicopter, .handler = new HelicopterMode(units, this) },
+    { .mode = DeviceMode::LightOut, .handler = new LightOutMode(units, this) }
   })
 {
-  IDeviceModeHandler * defaultModeHandler = nullptr;
+  DeviceModeHandlerMap selectRandom = handlers[random(0, DEVICE_MODES_COUNT)];
+  IDeviceModeHandler * defaultModeHandler = selectRandom.handler;
+
   handlersForMode = new (IDeviceModeHandler *[DEVICE_MODES_COUNT]);
+  activeMode = selectRandom.mode;
 
   for (auto h: handlers) {
     int modeIndex = Device::getModeIndex(h.mode);
 
     handlersForMode[modeIndex] = h.handler;
-
-    if (defaultModeHandler == nullptr) {
-      activeMode = h.mode;
-      defaultModeHandler = h.handler;
-    }
   }
 
   defaultModeHandler->onActivated();

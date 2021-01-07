@@ -1,12 +1,27 @@
 #ifndef DEVICE
 #define DEVICE
 
+#include <Arduino.h>
 #include "device_setup.h"
 #include "device_types.h"
 #include "device_mode.h"
 #include "device_units.h"
-#include "lib/utils.h"
-#include "modes/demo.h"
+
+#include "modes/light_frames.h"
+#include "modes/light_pulse.h"
+#include "modes/light_level.h"
+#include "modes/light_row.h"
+#include "modes/light_plane.h"
+#include "modes/light_random.h"
+#include "modes/light_drop.h"
+#include "modes/light_perimeter.h"
+#include "modes/light_face.h"
+#include "modes/column_random.h"
+#include "modes/column_drop.h"
+#include "modes/column_inout.h"
+#include "modes/diamond_box.h"
+#include "modes/helicopter_effect.h"
+#include "modes/light_out.h"
 
 struct DeviceModeHandlerMap {
   DeviceMode mode;

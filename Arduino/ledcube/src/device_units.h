@@ -14,6 +14,8 @@ class DeviceUnits {
     IDeviceControls * controls;
 
     void initCube();
+    void initControls();
+    void initRandomSeed();
   public:
     DeviceUnits();
 
