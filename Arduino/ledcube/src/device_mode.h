@@ -2,7 +2,6 @@
 #define DEVICE_MODE
 
 #include "device_units.h"
-#include "device_controls.h"
 
 class IDeviceStateManager {
   public:
@@ -11,14 +10,12 @@ class IDeviceStateManager {
     virtual ~IDeviceStateManager(){};
 };
 
-class IDeviceModeHandler: public IDeviceControlsDelegate {
+class IDeviceModeHandler {
   protected:
     IDeviceStateManager * stateManager;
     DeviceUnits * units;
   public:
-    IDeviceModeHandler(DeviceUnits * deviceUnits, IDeviceStateManager * deviceStateManager)
-      : IDeviceControlsDelegate(units->getControls())
-    {
+    IDeviceModeHandler(DeviceUnits * deviceUnits, IDeviceStateManager * deviceStateManager) {
       units = deviceUnits;
       stateManager = deviceStateManager;
     }

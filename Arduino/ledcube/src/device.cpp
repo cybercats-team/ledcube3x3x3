@@ -31,15 +31,14 @@ Device::Device() :
   IDeviceModeHandler * defaultModeHandler = nullptr;
   handlersForMode = new (IDeviceModeHandler *[DEVICE_MODES_COUNT]);
 
-  for (auto handlerMap: handlers) {
-    auto [mode, handler] = handlerMap;
-    int modeIndex = Device::getModeIndex(mode);
+  for (auto h: handlers) {
+    int modeIndex = Device::getModeIndex(h.mode);
 
-    handlersForMode[modeIndex] = handler;
+    handlersForMode[modeIndex] = h.handler;
 
     if (defaultModeHandler == nullptr) {
-      activeMode = mode;
-      defaultModeHandler = handler;
+      activeMode = h.mode;
+      defaultModeHandler = h.handler;
     }
   }
 
@@ -76,8 +75,8 @@ IDeviceModeHandler * Device::getActiveModeHandler() {
 bool Device::isModeAllowed(DeviceMode mode) {
   bool isValid = false;
 
-  for (auto handlerMap: handlers) {
-    if (handlerMap.mode == mode) {
+  for (auto h: handlers) {
+    if (h.mode == mode) {
       isValid = true;
       break;
     }

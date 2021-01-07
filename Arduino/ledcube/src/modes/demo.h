@@ -1,17 +1,14 @@
 #ifndef DEMO_MODE
 #define DEMO_MODE
 
-#include <Arduino.h>
-#include "../device_mode.h"
-#include "../device_types.h"
+#include "cube_animation.h"
 
-class DemoMode : public IDeviceModeHandler {
+class DemoMode : public ICubeAnimationMode {
   private:
-    LedCube * cube;
-    byte framesCount;
-    byte frameLeds[CUBE_FRAMES][6];
+    byte framesCount = 8;
   public:
-    DemoMode(DeviceUnits * deviceUnits, IDeviceStateManager * deviceStateManager);
+    DemoMode(DeviceUnits * deviceUnits, IDeviceStateManager * deviceStateManager) :
+      ICubeAnimationMode(deviceUnits, deviceStateManager) {}    
     void onLoop();
 };
 

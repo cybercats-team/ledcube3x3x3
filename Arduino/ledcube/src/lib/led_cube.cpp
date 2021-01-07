@@ -182,7 +182,7 @@ void LedCube::lightRow(byte r, byte level, unsigned int wait)
         byte start = r<=levels ? r-1 : (r - levels - 1) * levels;
         byte inc = r<=levels ? levels : 1;
 
-        byte seq[] = {level-1,start, level-1,start+inc, level-1,start+inc*2};
+        byte seq[] = {(byte) (level - 1), start, (byte) (level - 1), (byte) (start + inc), (byte) (level - 1), (byte) (start + 2 * inc)};
 
         lightSequence(seq, sizeof(seq), wait);
     }
@@ -213,9 +213,11 @@ void LedCube::lightPlane(byte r, unsigned int wait)
 
 void LedCube::lightColumn(byte col, unsigned int wait)
 {
-    if(col && col<=cols)
+    if(col && col <= cols)
     {
-        byte seq[] = {0,col-1,1,col-1,2,col-1};
+        byte prevCol = (byte) (col - 1);
+        byte seq[] = {0, prevCol, 1, prevCol, 2, prevCol};
+
         lightSequence(seq,sizeof(seq),wait);
     }
 }

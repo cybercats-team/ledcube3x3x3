@@ -1,10 +1,8 @@
 #include "demo.h"
 
-DemoMode::DemoMode(DeviceUnits * deviceUnits, IDeviceStateManager * deviceStateManager) :
-  IDeviceModeHandler(deviceUnits, deviceStateManager),
-  cube(deviceUnits->getCube()),
-  framesCount(CUBE_FRAMES),
-  frameLeds({
+void DemoMode::onLoop() {
+  cubeFrame ** frames = new cubeFrame *[framesCount];
+  byte frameLeds[8][6] = {
     {0,6, 1,6, 2,6},
     {0,7, 1,7, 2,7},
     {0,8, 1,8, 2,8},
@@ -13,10 +11,7 @@ DemoMode::DemoMode(DeviceUnits * deviceUnits, IDeviceStateManager * deviceStateM
     {0,1, 1,1, 2,1},
     {0,0, 1,0, 2,0},
     {0,3, 1,3, 2,3}
-  }) {}
-
-void DemoMode::onLoop() {
-  cubeFrame ** frames = new cubeFrame *[framesCount];
+  };
 
   for (byte frame = 0; frame < framesCount; frame++) {
     frames[frame] = cube->createFrame(frameLeds[frame], 6, 10 * (framesCount - frame));
@@ -78,7 +73,7 @@ void DemoMode::onLoop() {
   }
 
   // light each face
-  byte planes[] = {cube->getLevels() + 1, cube->getLevels(), cube->getLevels() * 2, 1};
+  byte planes[] = {(byte) (cube->getLevels() + 1), cube->getLevels(), (byte) (cube->getLevels() * 2), 1};
 
   for (byte i = 5; i; i--)
   {
