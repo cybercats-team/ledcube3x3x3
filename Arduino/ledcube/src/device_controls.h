@@ -3,7 +3,7 @@
 
 #include "device_setup.h"
 
-#define HANDLE_SWITCH();   \
+#define HANDLE_SWITCH()   \
 if (shouldSwitchMode()) { \
   return;                 \
 }

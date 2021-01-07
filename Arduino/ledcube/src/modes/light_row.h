@@ -15,6 +15,8 @@ class LightRowMode : public ICubeAnimationMode {
         for (byte row=1; row <= cube->getLevels() * 2; row++)
         {
           cube->lightRow(row, level);
+
+          HANDLE_SWITCH()
         }
       }
     }

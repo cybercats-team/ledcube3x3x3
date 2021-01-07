@@ -15,6 +15,8 @@ class LightPlaneMode : public ICubeAnimationMode {
         for (byte row = 1; row <= cube->getLevels() * 2; row++)
         {
           cube->lightPlane(row, 10 * i);
+
+          HANDLE_SWITCH()
         }
       }
     }

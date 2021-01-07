@@ -20,6 +20,8 @@ class ColumnInOutMode : public ICubeAnimationMode {
             cube->lightColumn(4,1);
             cube->lightColumn(6,1);
             cube->lightColumn(8,1);
+
+            HANDLE_SWITCH()
           }
         }
         else if (c % 4 == 1)
@@ -30,6 +32,8 @@ class ColumnInOutMode : public ICubeAnimationMode {
             cube->lightColumn(3,1);
             cube->lightColumn(7,1);
             cube->lightColumn(9,1);
+
+            HANDLE_SWITCH()
           }
         }
         else
@@ -37,6 +41,8 @@ class ColumnInOutMode : public ICubeAnimationMode {
           for (d = 0; d < 70; d++)
           {
             cube->lightColumn(5,1);
+
+            HANDLE_SWITCH()
           }
         }
       }

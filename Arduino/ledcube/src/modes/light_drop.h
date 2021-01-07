@@ -13,6 +13,8 @@ class LightDropMode : public ICubeAnimationMode {
       for (byte x = 0; x <= 15; x++)
       {
         cube->lightDrop(random(0, cube->getCols()), random(50, 150));
+
+        HANDLE_SWITCH()
       }
     }
 };

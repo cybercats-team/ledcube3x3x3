@@ -36,8 +36,6 @@ LedCube::LedCube(byte size, byte lp[], byte cp[], IDeviceControls * controls) :
     }
 
     clearBuffer();
-
-    //Serial.begin(9600);
 }
 
 // destructor frees dynamically allocated memory
@@ -97,6 +95,8 @@ void LedCube::randomLight(byte numLights, unsigned int wait)
     for (byte l=0; l<numLights; l++)
     {
         lightPulse(random(0,levels), random(0,cols), wait);
+
+        HANDLE_SWITCH()
     }
 }
 
@@ -104,7 +104,9 @@ void LedCube::lightDrop(byte col, unsigned int wait)
 {
      for(byte r=levels; r; r--)
      {
-         lightPulse(r-1, col-1, wait);
+        lightPulse(r-1, col-1, wait);
+
+        HANDLE_SWITCH()
      }
 }
 
@@ -118,20 +120,19 @@ void LedCube::lightSequence(byte seq[], byte length, unsigned int time, byte gap
 
     if(bufferEnabled){ time = 1; }
 
-    //Serial.print('{');
     for (unsigned int d=0; d<time; d++)
     {
         for (byte s=0; s<length; s+=2)
         {
             if(bufferEnabled){
-                 lightOn(seq[s], seq[s+1]);
+                lightOn(seq[s], seq[s+1]);
             } else {
-                 lightPulse(seq[s],seq[s+1], gap);
+                lightPulse(seq[s],seq[s+1], gap);
             }
-            //Serial.print(seq[s],DEC); if(s < length-1) Serial.print(', ');
+
+            HANDLE_SWITCH()
         }
     }
-    //Serial.println('}');
 }
 
 cubeFrame* LedCube::createFrame(byte sequence[], unsigned int size, unsigned int delay)
@@ -153,9 +154,15 @@ void LedCube::destroyFrame(cubeFrame* frame)
 
 void LedCube::lightFrames(cubeFrame* frames[], unsigned int length)
 {
+    bool interrupted = false;
+
     for(byte f=0; f<length; f++)
     {
-        lightSequence(frames[f]->sequence, frames[f]->size, frames[f]->delay);
+        if (!interrupted) {
+            lightSequence(frames[f]->sequence, frames[f]->size, frames[f]->delay);
+            interrupted = shouldSwitchMode();
+        }
+
         // reclaim memory allocated in createFrame to prevent a leak
         destroyFrame(frames[f]);
     }
@@ -219,6 +226,7 @@ void LedCube::lightColumn(byte col, unsigned int wait)
         byte seq[] = {0, prevCol, 1, prevCol, 2, prevCol};
 
         lightSequence(seq,sizeof(seq),wait);
+        HANDLE_SWITCH()
     }
 }
 
@@ -232,6 +240,8 @@ void LedCube::randomColumn(byte numColumns, unsigned int wait)
 {
     for (byte c=0; c < numColumns; c++) {
         lightColumn(random(1,cols+1), wait);
+
+        HANDLE_SWITCH()
     }
 }
 
@@ -281,15 +291,14 @@ void LedCube::drawBuffer(unsigned int wait)
         {
             if(buffer[lv][col])
             {
-                //Serial.print(buffer[r][c],DEC); Serial.print(': ');
-                //Serial.print(r,DEC); Serial.print(','); Serial.print(c,DEC); Serial.print(' ');
                 seq[n] = lv;
                 seq[n+1] = col;
                 n += 2;
             }
+
+            HANDLE_SWITCH()
         }
     }
-    // Serial.print('('); Serial.println(num,DEC); Serial.print(')');
 
     enableBuffer(false);
     lightSequence(seq, sizeof(seq), wait);
@@ -301,19 +310,27 @@ void LedCube::lightsOut(unsigned int wait)
     enableBuffer();
     fillBuffer();
     drawBuffer(25);
-    for(byte w=0, l, c, max = num; w<max; )
-    {
-        // lower bound is inclusive, upper is exclusive
-        l = random(0, levels);
-        c = random(0, cols);
 
-        if(getBufferAt(l,c) == HIGH)
+    if (!shouldSwitchMode()) {
+        for(byte w=0, l, c, max = num; w<max; )
         {
-            lightOff(l,c);
-            drawBuffer(wait);
-            w++;
+            // lower bound is inclusive, upper is exclusive
+            l = random(0, levels);
+            c = random(0, cols);
+
+            if(getBufferAt(l,c) == HIGH)
+            {
+                lightOff(l,c);
+                drawBuffer(wait);
+                w++;
+            }
+
+            if(shouldSwitchMode()) {
+                break;
+            }
         }
     }
+
     enableBuffer(false);
 }
 

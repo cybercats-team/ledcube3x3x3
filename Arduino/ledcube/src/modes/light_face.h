@@ -22,6 +22,8 @@ class LightFaceMode : public ICubeAnimationMode {
         for (byte p = 0; p < sizeof(planes); p++)
         {
           cube->lightPlane(planes[p], 5 * i);
+
+          HANDLE_SWITCH()
         }
       }
     }

@@ -15,6 +15,8 @@ class LightLevelMode : public ICubeAnimationMode {
         for (byte l = 1; l <= cube->getLevels(); l++)
         {
           cube->lightLevel(l, d);
+
+          HANDLE_SWITCH()
         }
       }
     }

@@ -15,6 +15,8 @@ class LightPulseMode : public ICubeAnimationMode {
         for (byte col = 0; col < cube->getCols(); col++)
         {
           cube->lightPulse(level, col, 100);
+
+          HANDLE_SWITCH()
         }
       }
     }
