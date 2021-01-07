@@ -15,6 +15,8 @@ class Controls : public IDeviceControls {
     float baseRatio;
     float minimalRatio;
     Debouncer * debouncer;
+    void updateRatio();
+    void updateRatio(bool initialize);
   public:
     Controls(int btnPin, int clkPin, float minRatio, float maxRatio);
     float getClockRatio();
