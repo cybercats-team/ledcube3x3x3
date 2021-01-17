@@ -38,7 +38,7 @@ class LedCube: public IDeviceControlsDelegate {
     void lightPerimeter(byte level, byte rotations, unsigned int wait = 50);
     void randomLight(byte numLights, unsigned int wait = 50);
     void randomColumn(byte numColumns = 1, unsigned int wait =  50);
-    void lightsOut(unsigned int wait =  5);
+    void lightsOut(unsigned int wait = 5);
 
     cubeFrame* createFrame(byte sequence[], unsigned int length, unsigned int delay);
     void destroyFrame(cubeFrame* frame);

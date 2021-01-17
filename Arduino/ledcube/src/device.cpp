@@ -24,6 +24,7 @@ int Device::getModeIndex(DeviceMode mode) {
 
 Device::Device() :
   units(new DeviceUnits()),
+  middlewares({ nullptr }),
   handlers({
     { .mode = DeviceMode::LightFrames, .handler = new LightFramesMode(units, this) },
     { .mode = DeviceMode::LightPulse, .handler = new LightPulseMode(units, this) },

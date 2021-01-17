@@ -33,3 +33,7 @@ void DeviceUnits::initCube() {
 
   cube = new LedCube(CUBE_SIZE, levelPins, colPins, controls);
 }
+
+void DeviceUnits::powerOff() {
+  
+}

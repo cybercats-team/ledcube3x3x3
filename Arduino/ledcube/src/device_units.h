@@ -5,10 +5,11 @@
 #include "device_setup.h"
 #include "device_types.h"
 #include "device_controls.h"
+#include "middlewares/power_switch.h"
 #include "hardware/controls.h"
 #include "lib/led_cube.h"
 
-class DeviceUnits {
+class DeviceUnits : public IPowerControlDelegate {
   private:
     LedCube * cube;
     IDeviceControls * controls;
@@ -18,6 +19,7 @@ class DeviceUnits {
     void initRandomSeed();
   public:
     DeviceUnits();
+    void powerOff();
 
     LedCube * getCube() {
       return cube;

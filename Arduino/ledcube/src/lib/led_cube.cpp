@@ -12,8 +12,6 @@ LedCube::LedCube(byte size, byte lp[], byte cp[], IDeviceControls * controls) :
     levels(size), cols(size*size), num(size*size*size),
     bufferEnabled(false), bufferInverted(false)
 {
-    randomSeed(analogRead(0));
-
     // allocate memory for dynamic members
     buffer = new byte*[levels];
     levelPins = new byte[levels];

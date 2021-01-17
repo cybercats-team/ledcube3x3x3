@@ -35,6 +35,7 @@ class Device: public IDeviceStateManager {
     DeviceMode activeMode;
     IDeviceModeHandler ** handlersForMode;
     DeviceModeHandlerMap handlers[DEVICE_MODES_COUNT];
+    IDeviceStateMiddleware * middlewares[MIDDLEWARES_ATTACHED];
 
     Device();
     void onLoop();
