@@ -4,33 +4,7 @@
 #include <Arduino.h>
 #include <avr/sleep.h>
 
-class IPowerControlDelegate {
-  public:
-    virtual void powerOff() = 0;
-};
-
-class IPowerController {
-  public:
-    virtual bool shuttingDown() = 0;
-    virtual bool poweredOff() = 0;
-};
-
-class IPowerHandler: public IPowerController {
-  protected:
-    IPowerController * powerSwitch;
-  public:
-    IPowerHandler(IPowerController * pwrSw) {
-      powerSwitch = pwrSw;
-    }
-
-    bool shuttingDown() {
-      return powerSwitch->shuttingDown();
-    }
-
-    bool poweredOff() {
-      return powerSwitch->poweredOff();
-    }
-};
+#include "../device_controls.h"
 
 class PowerSwitch: public IPowerController {
   private:
@@ -48,7 +22,6 @@ class PowerSwitch: public IPowerController {
     void wake();    
     void toggle();    
     void sleep();
-    void updateSleepState();
   public:
     PowerSwitch(PowerSwitch &other) = delete;    
     void operator=(const PowerSwitch &) = delete;  

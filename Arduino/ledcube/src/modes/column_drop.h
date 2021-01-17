@@ -6,17 +6,11 @@
 class ColumnDropMode : public ICubeAnimationMode {
   public:
     ColumnDropMode(DeviceUnits * deviceUnits, IDeviceStateManager * deviceStateManager) :
-      ICubeAnimationMode(deviceUnits, deviceStateManager) {}
-
-    void onActivated() {
-      cube->enableBuffer();
-    }
-
-    void onDeactivated() {
-      cube->enableBuffer(false);
-    }
+      ICubeAnimationMode(deviceUnits, deviceStateManager) {}   
 
     void animate() {
+      cube->enableBuffer();
+
       // turn off a single column randomly
       for (byte c = 0; c < 30; c++)
       {
@@ -25,8 +19,12 @@ class ColumnDropMode : public ICubeAnimationMode {
         cube->randomColumn();
         cube->drawBuffer(7);
 
-        HANDLE_INTERRUPTED()
+        if (isInterrupted()) {
+          break;
+        }
       }
+
+      cube->enableBuffer(false);
     }
 };
 

@@ -17,7 +17,7 @@ PowerSwitch::PowerSwitch(int powerPin, IPowerControlDelegate * delegate) {
 
   pinMode(powerPin, INPUT);       
   attachInterrupt(pwrInt, PowerSwitch::onToggle, HIGH);
-  updateSleepState();
+  sleepOnNextLoop = digitalRead(powerPin) == HIGH;
 }
 
 void PowerSwitch::prepareToSleep() {
@@ -34,7 +34,7 @@ void PowerSwitch::wake() {
 
 void PowerSwitch::toggle() {
   detachInterrupt(pwrInt);
-  updateSleepState();
+  sleepOnNextLoop = true;
 }
 
 void PowerSwitch::sleep() {
@@ -43,10 +43,6 @@ void PowerSwitch::sleep() {
   set_sleep_mode(SLEEP_MODE_PWR_DOWN);  
   attachInterrupt(pwrInt, PowerSwitch::onWake, LOW); 
   sleep_mode();
-}
-
-void PowerSwitch::updateSleepState() {
-  sleepOnNextLoop = digitalRead(powerPin) == HIGH; 
 }
 
 PowerSwitch * PowerSwitch::configure(int powerPin, IPowerControlDelegate * delegate) {

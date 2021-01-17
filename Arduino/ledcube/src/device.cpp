@@ -80,6 +80,10 @@ void Device::setRandomMode() {
 }
 
 void Device::onLoop() {
+  if (powerSwitch->poweredOff()) {
+    return;
+  }
+  
   getActiveModeHandler()->onLoop();
 }
 

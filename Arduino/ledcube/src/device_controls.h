@@ -2,12 +2,39 @@
 #define DEVICE_CONTROLS
 
 #include "device_setup.h"
-#include "hardware/power_switch.h"
 
 #define HANDLE_INTERRUPTED()   \
 if (isInterrupted()) { \
   return;                 \
 }
+
+class IPowerControlDelegate {
+  public:
+    virtual void powerOff() = 0;
+};
+
+class IPowerController {
+  public:
+    virtual bool shuttingDown() = 0;
+    virtual bool poweredOff() = 0;
+};
+
+class IPowerHandler: public IPowerController {
+  protected:
+    IPowerController * powerSwitch;
+  public:
+    IPowerHandler(IPowerController * pwrSw) {
+      powerSwitch = pwrSw;
+    }
+
+    bool shuttingDown() {
+      return powerSwitch->shuttingDown();
+    }
+
+    bool poweredOff() {
+      return powerSwitch->poweredOff();
+    }
+};
 
 class IDeviceControls: public IPowerHandler {
   public:
