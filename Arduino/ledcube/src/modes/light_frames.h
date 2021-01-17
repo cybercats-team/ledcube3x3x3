@@ -29,10 +29,8 @@ class LightFramesMode : public ICubeAnimationMode {
 
       delayMs(10);
 
-      if (shouldSwitchMode()) {
-        for (byte frame = 0; frame < framesCount; frame++) {
-          cube->destroyFrame(frames[frame]);
-        }
+      if (isInterrupted()) {
+        cube->destroyFrames(frames, framesCount);
       } else {
         cube->lightFrames(frames, framesCount);
       }

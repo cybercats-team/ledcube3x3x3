@@ -11,13 +11,6 @@ class IDeviceStateManager {
     virtual ~IDeviceStateManager(){};
 };
 
-class IDeviceStateMiddleware {
-  public:
-    virtual bool onLoop() {
-      return true;
-    }
-};
-
 class IDeviceModeHandler {
   protected:
     IDeviceStateManager * stateManager;

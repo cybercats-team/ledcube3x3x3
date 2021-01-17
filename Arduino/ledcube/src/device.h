@@ -32,11 +32,11 @@ class Device: public IDeviceStateManager {
   private:
     static Device * instance;
     DeviceUnits * units;
+    IPowerController * powerSwitch;
     DeviceMode activeMode;
     IDeviceModeHandler ** handlersForMode;
     DeviceModeHandlerMap handlers[DEVICE_MODES_COUNT];
-    IDeviceStateMiddleware * middlewares[MIDDLEWARES_ATTACHED];
-
+    
     Device();
     void onLoop();
     IDeviceModeHandler * getActiveModeHandler();

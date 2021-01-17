@@ -2,16 +2,17 @@
 #define DEVICE_CONTROLS
 
 #include "device_setup.h"
+#include "hardware/power_switch.h"
 
 #define HANDLE_SWITCH()   \
-if (shouldSwitchMode()) { \
+if (isInterrupted()) { \
   return;                 \
 }
 
-class IDeviceControls {
+class IDeviceControls: public IPowerController {
   public:
     virtual float getClockRatio() = 0;
-    virtual bool shouldSwitchMode() = 0;
+    virtual bool isInterrupted() = 0;
 };
 
 class IDeviceControlsDelegate {
@@ -31,8 +32,8 @@ class IDeviceControlsDelegate {
       }
     }
 
-    virtual bool shouldSwitchMode() {
-      return controls->shouldSwitchMode();
+    virtual bool isInterrupted() {
+      return controls->isInterrupted();
     }
 };
 

@@ -1,6 +1,8 @@
 #include "controls.h"
 
-Controls::Controls(int btnPin, int clkPin, float minRatio, float maxRatio) {
+Controls::Controls(int btnPin, int clkPin, float minRatio, float maxRatio, IPowerController * pwrSwitch)
+  : IPowerHandler(pwrSwitch) 
+{
   buttonPin = btnPin;
   wheelPin = clkPin;
 
@@ -20,10 +22,10 @@ float Controls::getClockRatio() {
   return clockRatio;
 }
 
-bool Controls::shouldSwitchMode() {
+bool Controls::isInterrupted() {
   updateRatio();
 
-  return debouncer->read() == LOW;
+  return powerSwitch->shuttingDown() || (debouncer->read() == LOW);
 }
 
 void Controls::updateRatio() {

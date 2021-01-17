@@ -16,7 +16,8 @@ void DeviceUnits::initControls() {
     MODE_TOGGLE_PIN,
     CLOCK_INPUT_PIN,
     (float) CLOCK_RATIO_MIN,
-    (float) CLOCK_RATIO_MAX
+    (float) CLOCK_RATIO_MAX,
+    PowerSwitch::configure(POWER_TOGGLE_PIN, this)
   );
 }
 
@@ -35,5 +36,5 @@ void DeviceUnits::initCube() {
 }
 
 void DeviceUnits::powerOff() {
-  
+  cube->turnOffAndReset();
 }

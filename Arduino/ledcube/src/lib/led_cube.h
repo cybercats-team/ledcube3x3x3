@@ -25,6 +25,8 @@ class LedCube: public IDeviceControlsDelegate {
     byte getLevels(){ return levels; }
     byte getNumLights(){ return num; }
 
+    void turnOffAndReset();
+
     void light(byte level, byte col, byte val);
     void lightOn(byte level, byte col);
     void lightOff(byte level, byte col);
@@ -42,6 +44,8 @@ class LedCube: public IDeviceControlsDelegate {
 
     cubeFrame* createFrame(byte sequence[], unsigned int length, unsigned int delay);
     void destroyFrame(cubeFrame* frame);
+    void destroyFrame(cubeFrame* frames[], unsigned int frame);
+    void destroyFrames(cubeFrame* frames[], unsigned int length);
     void lightFrames(cubeFrame* frames[], unsigned int length);
 
     void enableBuffer(boolean enable = true);

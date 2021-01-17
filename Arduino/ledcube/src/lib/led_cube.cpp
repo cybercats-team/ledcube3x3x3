@@ -9,8 +9,7 @@
 
 LedCube::LedCube(byte size, byte lp[], byte cp[], IDeviceControls * controls) :
     IDeviceControlsDelegate(controls),
-    levels(size), cols(size*size), num(size*size*size),
-    bufferEnabled(false), bufferInverted(false)
+    levels(size), cols(size*size), num(size*size*size)    
 {
     // allocate memory for dynamic members
     buffer = new byte*[levels];
@@ -33,7 +32,7 @@ LedCube::LedCube(byte size, byte lp[], byte cp[], IDeviceControls * controls) :
         pinMode(colPins[i], OUTPUT);
     }
 
-    clearBuffer();
+    turnOffAndReset();
 }
 
 // destructor frees dynamically allocated memory
@@ -46,6 +45,21 @@ LedCube::~LedCube()
     delete buffer;
     delete levelPins;
     delete colPins;
+}
+
+void LedCube::turnOffAndReset() 
+{
+    bufferEnabled = false;
+    bufferInverted = false;
+
+    for (byte i = 0; i < levels; i++)
+    {        
+        for (byte j = 0; j < cols; j++) {
+            lightOff(i, j);
+        }
+    }
+
+    clearBuffer();
 }
 
 // low level methods, zero based
@@ -150,6 +164,18 @@ void LedCube::destroyFrame(cubeFrame* frame)
     free(frame);
 }
 
+void LedCube::destroyFrame(cubeFrame* frames[], unsigned int frame)
+{
+    destroyFrame(frames[frame]);
+    frames[frame] = nullptr;
+}
+
+void LedCube::destroyFrames(cubeFrame* frames[], unsigned int length)
+{
+    for(byte f=0; f<length; f++) destroyFrame(frames, f);
+}
+
+
 void LedCube::lightFrames(cubeFrame* frames[], unsigned int length)
 {
     bool interrupted = false;
@@ -158,11 +184,11 @@ void LedCube::lightFrames(cubeFrame* frames[], unsigned int length)
     {
         if (!interrupted) {
             lightSequence(frames[f]->sequence, frames[f]->size, frames[f]->delay);
-            interrupted = shouldSwitchMode();
+            interrupted = isInterrupted();
         }
 
         // reclaim memory allocated in createFrame to prevent a leak
-        destroyFrame(frames[f]);
+        destroyFrame(frames, f);
     }
 }
 
@@ -309,7 +335,7 @@ void LedCube::lightsOut(unsigned int wait)
     fillBuffer();
     drawBuffer(25);
 
-    if (!shouldSwitchMode()) {
+    if (!isInterrupted()) {
         for(byte w=0, l, c, max = num; w<max; )
         {
             // lower bound is inclusive, upper is exclusive
@@ -323,7 +349,7 @@ void LedCube::lightsOut(unsigned int wait)
                 w++;
             }
 
-            if(shouldSwitchMode()) {
+            if(isInterrupted()) {
                 break;
             }
         }

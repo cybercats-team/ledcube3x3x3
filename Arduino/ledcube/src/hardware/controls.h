@@ -5,8 +5,12 @@
 #include "../device_setup.h"
 #include "../device_controls.h"
 #include "../lib/debouncer.h"
+#include "power_switch.h"
 
-class Controls : public IDeviceControls {
+class Controls : 
+  public IDeviceControls, 
+  public IPowerHandler 
+{
   private:
     int buttonPin;
     int wheelPin;
@@ -18,9 +22,9 @@ class Controls : public IDeviceControls {
     void updateRatio();
     void updateRatio(bool initialize);
   public:
-    Controls(int btnPin, int clkPin, float minRatio, float maxRatio);
+    Controls(int btnPin, int clkPin, float minRatio, float maxRatio, IPowerController * pwrSwitch);
     float getClockRatio();
-    bool shouldSwitchMode();
+    bool isInterrupted();
 };
 
 #endif
