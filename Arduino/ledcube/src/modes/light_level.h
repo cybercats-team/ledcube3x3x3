@@ -16,7 +16,7 @@ class LightLevelMode : public ICubeAnimationMode {
         {
           cube->lightLevel(l, d);
 
-          HANDLE_SWITCH()
+          HANDLE_INTERRUPTED()
         }
       }
     }

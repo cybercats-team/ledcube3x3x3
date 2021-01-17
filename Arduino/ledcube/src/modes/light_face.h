@@ -23,7 +23,7 @@ class LightFaceMode : public ICubeAnimationMode {
         {
           cube->lightPlane(planes[p], 5 * i);
 
-          HANDLE_SWITCH()
+          HANDLE_INTERRUPTED()
         }
       }
     }

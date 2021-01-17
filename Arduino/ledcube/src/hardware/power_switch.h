@@ -43,7 +43,7 @@ class PowerSwitch: public IPowerController {
     bool sleepOnNextLoop;
     IPowerControlDelegate * delegate;
     
-    PowerSwitch(int powerPin, IPowerControlDelegate * delegate = nullptr);
+    PowerSwitch(int powerPin, IPowerControlDelegate * delegate);
     void prepareToSleep();
     void wake();    
     void toggle();    
@@ -52,7 +52,7 @@ class PowerSwitch: public IPowerController {
   public:
     PowerSwitch(PowerSwitch &other) = delete;    
     void operator=(const PowerSwitch &) = delete;  
-    static PowerSwitch * configure(int powerPin, IPowerControlDelegate * delegate = nullptr);
+    static PowerSwitch * configure(int powerPin, IPowerControlDelegate * delegate);
     bool shuttingDown();
     bool poweredOff();
 };

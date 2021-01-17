@@ -14,7 +14,7 @@ class LightPerimeterMode : public ICubeAnimationMode {
       {
         cube->lightPerimeter(random(0, cube->getLevels()), random(1,5), random(25,100));
 
-        HANDLE_SWITCH()
+        HANDLE_INTERRUPTED()
       }
     }
 };

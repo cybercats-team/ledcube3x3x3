@@ -21,7 +21,7 @@ class ColumnInOutMode : public ICubeAnimationMode {
             cube->lightColumn(6,1);
             cube->lightColumn(8,1);
 
-            HANDLE_SWITCH()
+            HANDLE_INTERRUPTED()
           }
         }
         else if (c % 4 == 1)
@@ -33,7 +33,7 @@ class ColumnInOutMode : public ICubeAnimationMode {
             cube->lightColumn(7,1);
             cube->lightColumn(9,1);
 
-            HANDLE_SWITCH()
+            HANDLE_INTERRUPTED()
           }
         }
         else
@@ -42,7 +42,7 @@ class ColumnInOutMode : public ICubeAnimationMode {
           {
             cube->lightColumn(5,1);
 
-            HANDLE_SWITCH()
+            HANDLE_INTERRUPTED()
           }
         }
       }

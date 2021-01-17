@@ -14,7 +14,7 @@ class LightDropMode : public ICubeAnimationMode {
       {
         cube->lightDrop(random(0, cube->getCols()), random(50, 150));
 
-        HANDLE_SWITCH()
+        HANDLE_INTERRUPTED()
       }
     }
 };

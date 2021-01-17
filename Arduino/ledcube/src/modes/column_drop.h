@@ -25,7 +25,7 @@ class ColumnDropMode : public ICubeAnimationMode {
         cube->randomColumn();
         cube->drawBuffer(7);
 
-        HANDLE_SWITCH()
+        HANDLE_INTERRUPTED()
       }
     }
 };

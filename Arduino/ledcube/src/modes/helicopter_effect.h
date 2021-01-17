@@ -20,7 +20,7 @@ class HelicopterMode : public ICubeAnimationMode {
           byte seq[] = {2 ,topSeq[s], 1, 4, 0, botSeq[s]};
           cube->lightSequence(seq, sizeof(seq), delay);
 
-          HANDLE_SWITCH()
+          HANDLE_INTERRUPTED()
         }
 
         if (loops < 5) {

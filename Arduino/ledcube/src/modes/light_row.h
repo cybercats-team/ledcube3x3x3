@@ -16,7 +16,7 @@ class LightRowMode : public ICubeAnimationMode {
         {
           cube->lightRow(row, level);
 
-          HANDLE_SWITCH()
+          HANDLE_INTERRUPTED()
         }
       }
     }

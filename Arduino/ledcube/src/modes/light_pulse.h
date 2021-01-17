@@ -16,7 +16,7 @@ class LightPulseMode : public ICubeAnimationMode {
         {
           cube->lightPulse(level, col, 100);
 
-          HANDLE_SWITCH()
+          HANDLE_INTERRUPTED()
         }
       }
     }

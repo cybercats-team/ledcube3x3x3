@@ -4,13 +4,14 @@
 #include "device_setup.h"
 #include "hardware/power_switch.h"
 
-#define HANDLE_SWITCH()   \
+#define HANDLE_INTERRUPTED()   \
 if (isInterrupted()) { \
   return;                 \
 }
 
-class IDeviceControls: public IPowerController {
+class IDeviceControls: public IPowerHandler {
   public:
+    IDeviceControls(IPowerController * pwrSwitch): IPowerHandler(pwrSwitch) {}
     virtual float getClockRatio() = 0;
     virtual bool isInterrupted() = 0;
 };

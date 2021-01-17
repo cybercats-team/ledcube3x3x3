@@ -108,7 +108,7 @@ void LedCube::randomLight(byte numLights, unsigned int wait)
     {
         lightPulse(random(0,levels), random(0,cols), wait);
 
-        HANDLE_SWITCH()
+        HANDLE_INTERRUPTED()
     }
 }
 
@@ -118,7 +118,7 @@ void LedCube::lightDrop(byte col, unsigned int wait)
      {
         lightPulse(r-1, col-1, wait);
 
-        HANDLE_SWITCH()
+        HANDLE_INTERRUPTED()
      }
 }
 
@@ -142,7 +142,7 @@ void LedCube::lightSequence(byte seq[], byte length, unsigned int time, byte gap
                 lightPulse(seq[s],seq[s+1], gap);
             }
 
-            HANDLE_SWITCH()
+            HANDLE_INTERRUPTED()
         }
     }
 }
@@ -250,7 +250,7 @@ void LedCube::lightColumn(byte col, unsigned int wait)
         byte seq[] = {0, prevCol, 1, prevCol, 2, prevCol};
 
         lightSequence(seq,sizeof(seq),wait);
-        HANDLE_SWITCH()
+        HANDLE_INTERRUPTED()
     }
 }
 
@@ -265,7 +265,7 @@ void LedCube::randomColumn(byte numColumns, unsigned int wait)
     for (byte c=0; c < numColumns; c++) {
         lightColumn(random(1,cols+1), wait);
 
-        HANDLE_SWITCH()
+        HANDLE_INTERRUPTED()
     }
 }
 
@@ -320,7 +320,7 @@ void LedCube::drawBuffer(unsigned int wait)
                 n += 2;
             }
 
-            HANDLE_SWITCH()
+            HANDLE_INTERRUPTED()
         }
     }
 

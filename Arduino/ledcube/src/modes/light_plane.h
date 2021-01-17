@@ -16,7 +16,7 @@ class LightPlaneMode : public ICubeAnimationMode {
         {
           cube->lightPlane(row, 10 * i);
 
-          HANDLE_SWITCH()
+          HANDLE_INTERRUPTED()
         }
       }
     }

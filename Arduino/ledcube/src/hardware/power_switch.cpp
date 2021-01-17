@@ -10,7 +10,7 @@ void PowerSwitch::onWake() {
   instance->wake();
 }
 
-PowerSwitch::PowerSwitch(int powerPin, IPowerControlDelegate * delegate = nullptr) {
+PowerSwitch::PowerSwitch(int powerPin, IPowerControlDelegate * delegate) {
   this->powerPin = powerPin;
   this->delegate = delegate;
   pwrInt = digitalPinToInterrupt(powerPin);
@@ -49,7 +49,7 @@ void PowerSwitch::updateSleepState() {
   sleepOnNextLoop = digitalRead(powerPin) == HIGH; 
 }
 
-PowerSwitch * PowerSwitch::configure(int powerPin, IPowerControlDelegate * delegate = nullptr) {
+PowerSwitch * PowerSwitch::configure(int powerPin, IPowerControlDelegate * delegate) {
   if (instance == nullptr) {
     instance = new PowerSwitch(powerPin, delegate);
   }

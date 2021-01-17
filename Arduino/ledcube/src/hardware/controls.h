@@ -7,10 +7,7 @@
 #include "../lib/debouncer.h"
 #include "power_switch.h"
 
-class Controls : 
-  public IDeviceControls, 
-  public IPowerHandler 
-{
+class Controls : public IDeviceControls {
   private:
     int buttonPin;
     int wheelPin;
