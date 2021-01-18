@@ -9,17 +9,16 @@
 #include "hardware/power_switch.h"
 #include "lib/led_cube.h"
 
-class DeviceUnits : public IPowerControlDelegate {
+class DeviceUnits {
   private:
     LedCube * cube;
     IDeviceControls * controls;
 
     void initCube();
-    void initControls();
+    void initControls(IPowerController * pwrSwitch);
     void initRandomSeed();
   public:
-    DeviceUnits();
-    void powerOff();
+    DeviceUnits(IPowerController * pwrSwitch);
 
     LedCube * getCube() {
       return cube;

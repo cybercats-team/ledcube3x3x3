@@ -10,6 +10,7 @@ if (isInterrupted()) { \
 
 class IPowerControlDelegate {
   public:
+    virtual void powerOn() = 0;
     virtual void powerOff() = 0;
 };
 

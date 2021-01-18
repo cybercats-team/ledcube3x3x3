@@ -6,6 +6,7 @@
 #include "device_types.h"
 #include "device_mode.h"
 #include "device_units.h"
+#include "device_controls.h"
 
 #include "modes/light_frames.h"
 #include "modes/light_pulse.h"
@@ -28,11 +29,14 @@ struct DeviceModeHandlerMap {
   IDeviceModeHandler * handler;
 };
 
-class Device: public IDeviceStateManager {
+class Device :
+  public IDeviceStateManager,
+  public IPowerControlDelegate,
+  public IPowerHandler
+{
   private:
     static Device * instance;
     DeviceUnits * units;
-    IPowerController * powerSwitch;
     DeviceMode activeMode;
     IDeviceModeHandler ** handlersForMode;
     DeviceModeHandlerMap handlers[DEVICE_MODES_COUNT];
@@ -51,6 +55,8 @@ class Device: public IDeviceStateManager {
     DeviceMode getActiveMode();
     void setActiveMode(DeviceMode newMode);
     void setRandomMode();
+    void powerOn();
+    void powerOff();
 };
 
 #endif

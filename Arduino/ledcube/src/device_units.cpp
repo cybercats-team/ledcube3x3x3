@@ -1,8 +1,8 @@
 #include "device_units.h"
 
-DeviceUnits::DeviceUnits() {
+DeviceUnits::DeviceUnits(IPowerController * pwrSwitch) {
   initRandomSeed();
-  initControls();
+  initControls(pwrSwitch);
   initCube();
 }
 
@@ -11,13 +11,13 @@ void DeviceUnits::initRandomSeed() {
   randomSeed(analogRead(RANDOM_SEED_PIN));
 }
 
-void DeviceUnits::initControls() {
+void DeviceUnits::initControls(IPowerController * pwrSwitch) {
   controls = new Controls(
     MODE_TOGGLE_PIN,
     CLOCK_INPUT_PIN,
     (float) CLOCK_RATIO_MIN,
     (float) CLOCK_RATIO_MAX,
-    PowerSwitch::configure(POWER_TOGGLE_PIN, this)
+    pwrSwitch    
   );
 }
 
@@ -33,8 +33,4 @@ void DeviceUnits::initCube() {
   };
 
   cube = new LedCube(CUBE_SIZE, levelPins, colPins, controls);
-}
-
-void DeviceUnits::powerOff() {
-  cube->turnOffAndReset();
 }

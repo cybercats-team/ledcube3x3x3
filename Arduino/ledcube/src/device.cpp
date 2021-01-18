@@ -23,8 +23,8 @@ int Device::getModeIndex(DeviceMode mode) {
 }
 
 Device::Device() :
-  units(new DeviceUnits()),
-  powerSwitch(units->getControls()),
+  IPowerHandler(PowerSwitch::configure(POWER_TOGGLE_PIN, this)),
+  units(new DeviceUnits(powerSwitch)),
   handlers({
     { .mode = DeviceMode::LightFrames, .handler = new LightFramesMode(units, this) },
     { .mode = DeviceMode::LightPulse, .handler = new LightPulseMode(units, this) },
@@ -80,7 +80,7 @@ void Device::setRandomMode() {
 }
 
 void Device::onLoop() {
-  if (powerSwitch->poweredOff()) {
+  if (poweredOff()) {
     return;
   }
   
@@ -115,4 +115,14 @@ bool Device::isModeAllowed(DeviceMode mode) {
   }
 
   return isValid;
+}
+
+void Device::powerOn() {
+
+}
+
+void Device::powerOff() {
+  LedCube * cube = units->getCube();
+
+  cube->turnOffAndReset();
 }
