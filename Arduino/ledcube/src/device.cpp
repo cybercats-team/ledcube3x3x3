@@ -59,13 +59,11 @@ DeviceMode Device::getActiveMode() {
 }
 
 void Device::setActiveMode(DeviceMode newMode) {
-  if ((newMode == activeMode) || !isModeAllowed(newMode)) {
+  if (shuttingDown() || (newMode == activeMode) || !isModeAllowed(newMode)) {
     return;
   }
 
-  IDeviceModeHandler * currentHandler = getActiveModeHandler();
-
-  currentHandler->onDeactivated();
+  deactivateCurrentMode();
   activateMode(newMode);
 }
 
@@ -83,7 +81,7 @@ void Device::onLoop() {
   if (poweredOff()) {
     return;
   }
-  
+
   getActiveModeHandler()->onLoop();
 }
 
@@ -91,6 +89,12 @@ IDeviceModeHandler * Device::getActiveModeHandler() {
   int modeIndex = Device::getModeIndex(activeMode);
 
   return handlersForMode[modeIndex];
+}
+
+void Device::deactivateCurrentMode() {
+  IDeviceModeHandler * currentHandler = getActiveModeHandler();
+
+  currentHandler->onDeactivated();
 }
 
 void Device::activateMode(DeviceMode newMode) {
@@ -118,11 +122,12 @@ bool Device::isModeAllowed(DeviceMode mode) {
 }
 
 void Device::powerOn() {
-
+  selectRandomMode();
 }
 
 void Device::powerOff() {
   LedCube * cube = units->getCube();
 
+  deactivateCurrentMode();
   cube->turnOffAndReset();
 }

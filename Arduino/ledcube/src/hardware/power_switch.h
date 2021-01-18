@@ -11,20 +11,19 @@ class PowerSwitch: public IPowerController {
     static PowerSwitch * instance;
     static void onToggle();
     static void onWake();
-    
+
     int powerPin;
     int pwrInt;
     bool sleepOnNextLoop;
     IPowerControlDelegate * delegate;
-    
+
     PowerSwitch(int powerPin, IPowerControlDelegate * delegate);
-    void prepareToSleep();
-    void wake();    
-    void toggle();    
+    void wake();
+    void toggle();
     void sleep();
   public:
-    PowerSwitch(PowerSwitch &other) = delete;    
-    void operator=(const PowerSwitch &) = delete;  
+    PowerSwitch(PowerSwitch &other) = delete;
+    void operator=(const PowerSwitch &) = delete;
     static PowerSwitch * configure(int powerPin, IPowerControlDelegate * delegate);
     bool shuttingDown();
     bool poweredOff();

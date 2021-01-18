@@ -5,6 +5,7 @@
 
 class LightFramesMode : public ICubeAnimationMode {
   private:
+    cubeFrame ** frames;
     byte framesCount = 8;
     byte frameLeds[8][6] = {
       {0,6, 1,6, 2,6},
@@ -20,21 +21,22 @@ class LightFramesMode : public ICubeAnimationMode {
     LightFramesMode(DeviceUnits * deviceUnits, IDeviceStateManager * deviceStateManager) :
       ICubeAnimationMode(deviceUnits, deviceStateManager) {}
 
-    void animate() {
-      cubeFrame ** frames = new cubeFrame *[framesCount];
+    void onActivated() {
+      frames = new cubeFrame *[framesCount];
 
       for (byte frame = 0; frame < framesCount; frame++) {
         frames[frame] = cube->createFrame(frameLeds[frame], 6, 10 * (framesCount - frame));
       }
+    }
 
+    void animate() {
       delayMs(10);
+      HANDLE_INTERRUPTED()
+      cube->lightFrames(frames, framesCount);
+    }
 
-      if (isInterrupted()) {
-        cube->destroyFrames(frames, framesCount);
-      } else {
-        cube->lightFrames(frames, framesCount);
-      }
-
+    void onDeactivated() {
+      cube->destroyFrames(frames, framesCount);
       delete frames;
     }
 };

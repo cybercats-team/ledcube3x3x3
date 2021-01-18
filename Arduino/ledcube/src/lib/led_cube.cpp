@@ -9,7 +9,7 @@
 
 LedCube::LedCube(byte size, byte lp[], byte cp[], IDeviceControls * controls) :
     IDeviceControlsDelegate(controls),
-    levels(size), cols(size*size), num(size*size*size)    
+    levels(size), cols(size*size), num(size*size*size)
 {
     // allocate memory for dynamic members
     buffer = new byte*[levels];
@@ -47,13 +47,13 @@ LedCube::~LedCube()
     delete colPins;
 }
 
-void LedCube::turnOffAndReset() 
+void LedCube::turnOffAndReset()
 {
     bufferEnabled = false;
     bufferInverted = false;
 
     for (byte i = 0; i < levels; i++)
-    {        
+    {
         for (byte j = 0; j < cols; j++) {
             lightOff(i, j);
         }
@@ -160,6 +160,8 @@ cubeFrame* LedCube::createFrame(byte sequence[], unsigned int size, unsigned int
 
 void LedCube::destroyFrame(cubeFrame* frame)
 {
+    if (frame == nullptr) return;
+
     free(frame->sequence);
     free(frame);
 }
@@ -174,7 +176,6 @@ void LedCube::destroyFrames(cubeFrame* frames[], unsigned int length)
 {
     for(byte f=0; f<length; f++) destroyFrame(frames, f);
 }
-
 
 void LedCube::lightFrames(cubeFrame* frames[], unsigned int length)
 {

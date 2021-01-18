@@ -40,11 +40,12 @@ class Device :
     DeviceMode activeMode;
     IDeviceModeHandler ** handlersForMode;
     DeviceModeHandlerMap handlers[DEVICE_MODES_COUNT];
-    
+
     Device();
     void onLoop();
     IDeviceModeHandler * getActiveModeHandler();
     bool isModeAllowed(DeviceMode mode);
+    void deactivateCurrentMode();
     void activateMode(DeviceMode newMode);
     DeviceMode selectRandomMode();
     static int getModeIndex(DeviceMode mode);
