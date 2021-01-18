@@ -122,7 +122,7 @@ bool Device::isModeAllowed(DeviceMode mode) {
 }
 
 void Device::powerOn() {
-  selectRandomMode();
+  setRandomMode();
 }
 
 void Device::powerOff() {

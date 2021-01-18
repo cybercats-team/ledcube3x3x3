@@ -21,8 +21,8 @@ PowerSwitch::PowerSwitch(int powerPin, IPowerControlDelegate * delegate) {
 }
 
 void PowerSwitch::wake() {
+  detachInterrupt(pwrInt);
   sleepOnNextLoop = false;
-  delegate->powerOn();
 }
 
 void PowerSwitch::toggle() {
@@ -34,7 +34,10 @@ void PowerSwitch::sleep() {
   delegate->powerOff();
   set_sleep_mode(SLEEP_MODE_PWR_DOWN);
   attachInterrupt(pwrInt, PowerSwitch::onWake, LOW);
+
   sleep_mode();
+  sleep_disable();
+  delegate->powerOn();
 }
 
 PowerSwitch * PowerSwitch::configure(int powerPin, IPowerControlDelegate * delegate) {
